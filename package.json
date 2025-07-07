@@ -17,7 +17,8 @@
     "react-native-gesture-handler": "~2.24.0",
     "react-native-reanimated": "~3.17.4",
     "expo-video": "~2.2.2",
-    "expo-screen-orientation": "~8.1.7"
+    "expo-screen-orientation": "~8.1.7",
+    "expo-audio": "~0.4.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

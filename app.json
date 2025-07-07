@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "canvas-app",
-    "slug": "canvas-app",
+    "name": "expo-audio",
+    "slug": "expo-audio",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
@@ -39,6 +39,12 @@
         "expo-screen-orientation",
         {
           "initialOrientation": "LANDSCAPE"
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
         }
       ]
     ]
