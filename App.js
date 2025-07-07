@@ -1,57 +1,76 @@
-import { useEvent } from "expo";
-import { useVideoPlayer, VideoView } from "expo-video";
-import { useEffect, useRef } from "react";
-import { View } from "react-native";
-import * as ScreenOrientation from "expo-screen-orientation";
+import { View, StyleSheet, Button } from "react-native";
+import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
+import Slider from "@react-native-community/slider";
+import { useEffect } from "react";
 
-const videoSource =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+const audioSource = require("./assets/Hello.mp3");
 
-export default function Video() {
-  const playerRef = useRef();
+export default function Audio() {
+  const player = useAudioPlayer(audioSource);
+  const status = useAudioPlayerStatus(player);
 
-  useEffect(() => {
-    // If you want full screen play if the video dimension is correct
-    // playerRef?.current?.enterFullscreen();
+  const onSlide = async (value) => {
+    await player.seekTo(value);
+  };
 
-    // screen lock landscape
-    ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE
-    ).catch((e) => console.log(e));
-  }, []);
-
-  const player = useVideoPlayer(videoSource, (player) => {
-    player.loop = false;
+  const replaySoundHandler = () => {
+    player.seekTo(0);
     player.play();
-  });
+  };
 
-  // is player is error or ready to play status
-  const { status, error } = useEvent(player, "statusChange", {
-    status: player.status,
-  });
-
-  // isPlaying status
-  const { isPlaying } = useEvent(player, "playingChange", {
-    isPlaying: player.playing,
-  });
-
-  // log to debug player
   useEffect(() => {
-    console.log("player status =>", status);
-    console.log("is playing =>", isPlaying);
-    console.log("player error =>", error);
+    // console.log("player =>", player);
+    // console.log("player status =>", status);
   }, [player]);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
-      <VideoView
-        ref={playerRef}
-        player={player}
-        style={{ flex: 1 }}
-        contentFit="cover"
-        nativeControls={false}
-        allowsFullscreen
+    <View style={styles.container}>
+      <Slider
+        style={styles.slider}
+        minimumValue={0}
+        maximumValue={player.duration}
+        value={player.currentTime}
+        onSlidingComplete={onSlide}
+        tapToSeek
       />
+      <View style={styles.controls}>
+        <Button title="Play" onPress={() => player.play()} />
+        <Button title="Pause" onPress={() => player.pause()} />
+        <Button title="Replay" onPress={replaySoundHandler} />
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#ecf0f1",
+    padding: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  slider: {
+    width: "100%",
+    height: 50,
+  },
+  timeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 8,
+  },
+  time: {
+    fontSize: 14,
+    color: "#555",
+  },
+  controls: {
+    flexDirection: "row",
+    justifyContent: "center",
+    rowGap: 20,
+  },
+});
