@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "canvas-app",
-    "slug": "canvas-app",
+    "name": "expo-video",
+    "slug": "expo-video",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
