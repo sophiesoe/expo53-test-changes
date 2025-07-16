@@ -2,7 +2,7 @@
 
 ## For Android
 
-The volume control works both **Emulators and Real Devices**.
+The volume control works on both **Emulators and Real Devices**.
 
 ## For iOS
 
