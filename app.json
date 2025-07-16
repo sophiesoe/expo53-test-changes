@@ -3,7 +3,7 @@
     "name": "expo-audio",
     "slug": "expo-audio",
     "version": "1.0.0",
-    "orientation": "landscape",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -14,7 +14,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sophie-soe.canvasapp"
+      "bundleIdentifier": "com.sophie-soe.canvasapp",
+      "UIBackgroundModes": ["audio"]
     },
     "android": {
       "adaptiveIcon": {
